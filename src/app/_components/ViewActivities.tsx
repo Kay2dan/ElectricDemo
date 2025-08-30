@@ -44,8 +44,8 @@ export default function ViewActivities({
       <div className="space-y-2">
         {activities?.map((activity) => (
           <div key={activity.id} className="p-3 bg-gray-100 rounded-lg">
-            <p className="text-sm text-gray-900">Output: {activity.output}</p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-sm text-gray-900">{activity.output}</p>
+            <p className="text-base text-black mt-1">
               Completed: {activity.completedOn?.toString()}
             </p>
           </div>
