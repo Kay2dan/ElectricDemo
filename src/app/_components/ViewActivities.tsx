@@ -39,13 +39,13 @@ export default function ViewActivities({
   return (
     <div className="p-6">
       <h4 className="text-xl font-semibold text-gray-800 mb-4">
-        Activities for Habit {habitId}
+        Past 6 days activities for habit: {habitId}
       </h4>
       <div className="space-y-2">
         {activities?.map((activity) => (
-          <div key={activity.id} className="p-3 bg-gray-100 rounded-lg">
+          <div key={activity.id} className="px-1">
             <p className="text-sm text-gray-900">{activity.output}</p>
-            <p className="text-base text-black mt-1">
+            <p className="text-sm text-gray-900">
               Completed: {activity.completedOn?.toString()}
             </p>
           </div>
