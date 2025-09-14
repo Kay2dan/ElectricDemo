@@ -1,20 +1,6 @@
 import { habitActivityCollection } from "@/collection/habitActivity";
 import { and, eq, gte, lt, useLiveQuery } from "@tanstack/react-db";
 
-function getDefaultStartDate(): Date {
-  const d = new Date();
-  d.setDate(d.getDate() - 7);
-  d.setHours(0, 0, 0, 0);
-  return d;
-}
-
-function getDefaultEndDate(): Date {
-  const d = new Date();
-  d.setDate(d.getDate() - 1);
-  d.setHours(23, 59, 59, 999);
-  return d;
-}
-
 export default function ViewActivities({
   habitId,
   startDate,
@@ -24,14 +10,15 @@ export default function ViewActivities({
   startDate?: Date;
   endDate?: Date;
 }) {
-  const start = startDate || getDefaultStartDate();
-  const end = endDate || getDefaultEndDate();
-
-  const { data: activities } = useLiveQuery((q) =>
-    q
-      .from({ act: habitActivityCollection })
-      .where(({ act }) => eq(act.habitId, habitId))
-      .where(({ act }) => and(gte(act.forDate, start), lt(act.forDate, end)))
+  const { data: activities } = useLiveQuery(
+    (q) =>
+      q
+        .from({ act: habitActivityCollection })
+        .where(({ act }) => eq(act.habitId, habitId))
+        .where(({ act }) =>
+          and(gte(act.forDate, startDate), lt(act.forDate, endDate))
+        ),
+    [habitId, startDate, endDate]
   );
 
   console.log("activity for habitId: ", habitId, activities);

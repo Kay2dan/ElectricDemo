@@ -3,6 +3,7 @@
 import { habitCollection } from "@/collection/habit";
 import { and, eq, gte, lt, useLiveQuery } from "@tanstack/react-db";
 import ViewActivities from "./ViewActivities";
+import { getDefaultEndDate, getDefaultStartDate } from "../utils/getDates";
 
 export default function ViewHabits({
   activeHabitId,
@@ -35,7 +36,13 @@ export default function ViewHabits({
             </div>
           ))}
         </div>
-        {activeHabitId && <ViewActivities habitId={activeHabitId} />}
+        {activeHabitId ? (
+          <ViewActivities
+            habitId={activeHabitId}
+            endDate={getDefaultEndDate()}
+            startDate={getDefaultStartDate()}
+          />
+        ) : null}
       </div>
     </div>
   );
